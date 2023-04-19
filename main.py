@@ -56,4 +56,4 @@ watchList = makeList(names, startTime, endTime)
 #end = get_end(startTime, )
 for i in watchList:
     print(i + ':', watchList[i])
-print("****************")
+print("***************")
