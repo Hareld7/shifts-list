@@ -8,6 +8,8 @@ random.shuffle(names)
 startTime = '20.00'
 endTime = '08.50'
 
+
+#finds the gap between a given start time & end time
 def find_gap(start, end):
     startHour = int(start[:2])
     endHour = int(end[:2])
@@ -21,6 +23,8 @@ def find_gap(start, end):
         hourGap = (endHour - startHour) % 24
     return hourGap, minuteGap
 
+
+#finds the gap per shift, using the previous find_gap function & given names list
 def personalGap(list, start, end):
     totalGap = find_gap(start, end)
     hourGap = totalGap[0] // len(list)
@@ -29,6 +33,8 @@ def personalGap(list, start, end):
     minutesGap = totalMinutes // len(list)
     return hourGap, minutesGap
 
+
+#making a dict type, names are the keys, the start time of every shift is the value key
 def makeList(list, start, end):
     dict = {list[0]: start}
     currentHour = (start[:2])
@@ -39,13 +45,9 @@ def makeList(list, start, end):
         minuteGap = personal_gap[1]
         if int(currentMinute) + int(minuteGap) > 60:
             hourGap = hourGap + 1
-            currentHour = (int(currentHour) + hourGap) % 24
-            currentMinute = (int(currentMinute) + int(minuteGap)) % 60
-            currentTime = str(currentHour).zfill(2)+':'+str(currentMinute).zfill(2)
-        else:
-            currentHour = (int(currentHour) + hourGap) % 24
-            currentMinute = (int(currentMinute) + int(minuteGap)) % 60
-            currentTime = str(currentHour).zfill(2)+':'+str(currentMinute).zfill(2)
+        currentHour = (int(currentHour) + hourGap) % 24
+        currentMinute = (int(currentMinute) + int(minuteGap)) % 60
+        currentTime = str(currentHour).zfill(2)+':'+str(currentMinute).zfill(2)
         dict.update({i: currentTime})
     return dict
 
