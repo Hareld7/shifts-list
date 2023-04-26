@@ -1,12 +1,37 @@
 import random
 
-names = [
-    'guard_1', 'guard_2', 'guard_3', 'guard_4', 'guard_5', 'guard_6'
-]
-random.shuffle(names)
+startTime = "12:00"
+endTime = "20:00"
 
-startTime = '20.00'
-endTime = '08.50'
+def find_list():
+    question1 = input("New File? ")
+    if question1[0] == "y":
+        list = input("Save list as: ")
+    else:
+        try:
+            question2 = input("Choose file: ")
+            list = question2
+        except:
+            FileNotFoundError
+        else:
+            list = input("Save file as: ")
+    with open(list, "a") as file:
+        name = ""
+        while name != "q":
+            name = input("Name: ")
+            if name != "q":
+                file.write(f"{name},")
+
+
+    with open(list, "r") as file1:
+        num = 0
+        list = []
+        po = file1.read()
+        row = po.split(",")
+        for i in range(len(row) - 1):
+            list.append(row[num])
+            num = num + 1
+    return list
 
 
 #finds the gap between a given start time & end time
@@ -51,8 +76,14 @@ def makeList(list, start, end):
         dict.update({i: currentTime})
     return dict
 
+
+#TESTS
+
 print("****************")
 print("Shifts list:")
+print("****************")
+names = find_list()
+random.shuffle(names)
 print("****************")
 watchList = makeList(names, startTime, endTime)
 #end = get_end(startTime, )
