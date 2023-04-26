@@ -1,38 +1,45 @@
 import random
 
-startTime = "12:00"
-endTime = "20:00"
+startTime = input("start time: ")
+endTime = input("end time: ")
 
+#choosing a list from a file or creating a new one
 def find_list():
-    question1 = input("New File? ")
+    question1 = input("From a file? ")
     if question1[0] == "y":
-        list = input("Save list as: ")
-    else:
-        try:
-            question2 = input("Choose file: ")
-            list = question2
-        except:
-            FileNotFoundError
+        question2 = input("New File? ")
+        if question2[0] == "y":
+            list = input("Save file as: ")+".csv"
         else:
-            list = input("Save file as: ")
-    with open(list, "a") as file:
-        name = ""
-        while name != "q":
-            name = input("Name: ")
-            if name != "q":
-                file.write(f"{name},")
+            try:
+                question3 = input("Choose file: ")
+                list = question3
+            except:
+                FileNotFoundError
+                list = input("Save file as: ")+".csv"
+        with open(list, "a") as file:
+            name = ""
+            while name != "q":
+                name = input("Name: ")
+                if name != "q":
+                    file.write(f"{name},")
 
-
-    with open(list, "r") as file1:
-        num = 0
+        with open(list, "r") as file1:
+            num = 0
+            list = []
+            po = file1.read()
+            row = po.split(",")
+            for i in range(len(row) - 1):
+                list.append(row[num])
+                num = num + 1
+#one-time list from input
+    else:
         list = []
-        po = file1.read()
-        row = po.split(",")
-        for i in range(len(row) - 1):
-            list.append(row[num])
-            num = num + 1
+        inp = ""
+        while inp != "q":
+            inp = input("Name: ")
+            list.append(inp)
     return list
-
 
 #finds the gap between a given start time & end time
 def find_gap(start, end):
@@ -48,7 +55,6 @@ def find_gap(start, end):
         hourGap = (endHour - startHour) % 24
     return hourGap, minuteGap
 
-
 #finds the gap per shift, using the previous find_gap function & given names list
 def personalGap(list, start, end):
     totalGap = find_gap(start, end)
@@ -57,7 +63,6 @@ def personalGap(list, start, end):
     totalMinutes =  totalGap[1] + (hourGapRemains * 60)
     minutesGap = totalMinutes // len(list)
     return hourGap, minutesGap
-
 
 #making a dict type, names are the keys, the start time of every shift is the value key
 def makeList(list, start, end):
@@ -76,9 +81,7 @@ def makeList(list, start, end):
         dict.update({i: currentTime})
     return dict
 
-
 #TESTS
-
 print("****************")
 print("Shifts list:")
 print("****************")
