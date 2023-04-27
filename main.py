@@ -1,5 +1,6 @@
 import random
 
+print("Please write the time in 4 letters with a dot between the hours and the minutes")
 startTime = input("start time: ")
 endTime = input("end time: ")
 
