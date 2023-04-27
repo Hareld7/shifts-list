@@ -1,6 +1,7 @@
 import random
 
-print("Please write the time in 4 letters with a dot between the hours and the minutes")
+print("****************")
+print("Please write the time in four letters")
 startTime = input("start time: ")
 endTime = input("end time: ")
 
@@ -25,6 +26,7 @@ def find_list():
                 list = input("Save file as: ")+".csv"
                 print("****************")
         with open(list, "a") as file:
+            print("Write each name separately, When done write 'q'")
             name = ""
             while name != "q":
                 name = input("Name: ")
@@ -51,10 +53,10 @@ def find_list():
 
 #finds the gap between a given start time & end time
 def find_gap(start, end):
-    startHour = int(start[:2])
-    endHour = int(end[:2])
-    startMinute = int(start[3:])
-    endMinute = int(end[3:])
+    startHour = int(start[:1])
+    endHour = int(end[:1])
+    startMinute = int(start[2:])
+    endMinute = int(end[2:])
     minuteGap = (endMinute - startMinute)
     if minuteGap < 0:
         hourGap = (endHour - startHour - 1) % 24
@@ -74,9 +76,9 @@ def personalGap(list, start, end):
 
 #making a dict type, names are the keys, the start time of every shift is the value key
 def makeList(list, start, end):
-    dict = {list[0]: start}
+    dict = {list[0]: start[:2]+":"+start[2:]}
     currentHour = (start[:2])
-    currentMinute = (start[3:])
+    currentMinute = (start[2:])
     for i in list[1:]:
         personal_gap = personalGap(list, start, end)
         hourGap = personal_gap[0]
