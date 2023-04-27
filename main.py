@@ -5,19 +5,19 @@ endTime = input("end time: ")
 
 #choosing a list from a file or creating a new one
 def find_list():
-    question1 = input("From a file? ")
+    readInputFromFile = input("From a file? y for yes, n for no.    ")
     print("****************")
-    if question1[0] == "y":
-        question2 = input("New File? ")
+    if readInputFromFile[0] == "y":
+        newFileInput = input("New File? y for yes, n for no.   ")
         print("****************")
-        if question2[0] == "y":
+        if newFileInput[0] == "y":
             list = input("Save file as: ")+".csv"
             print("****************")
         else:
-            question3 = input("Choose file: ")
+            chooseFileInput = input("Choose file: ")
             print("****************")
             try:
-                list = open(question3, "r")
+                list = open(chooseFileInput, "r")
             except FileNotFoundError:
                 print("File does not exists, please create a new one")
                 print("****************")
