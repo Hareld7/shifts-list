@@ -91,6 +91,7 @@ def makeList(list, start, end):
         dict.update({i: currentTime})
     return dict
 
+
 #TESTS
 print("****************")
 print("Shifts list:")
