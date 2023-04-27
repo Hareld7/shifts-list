@@ -3,6 +3,7 @@ import random
 startTime = input("start time: ")
 endTime = input("end time: ")
 
+
 #choosing a list from a file or creating a new one
 def find_list():
     readInputFromFile = input("From a file? y for yes, n for no.    ")
