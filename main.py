@@ -6,17 +6,23 @@ endTime = input("end time: ")
 #choosing a list from a file or creating a new one
 def find_list():
     question1 = input("From a file? ")
+    print("****************")
     if question1[0] == "y":
         question2 = input("New File? ")
+        print("****************")
         if question2[0] == "y":
             list = input("Save file as: ")+".csv"
+            print("****************")
         else:
+            question3 = input("Choose file: ")
+            print("****************")
             try:
-                question3 = input("Choose file: ")
-                list = question3
-            except:
-                FileNotFoundError
+                list = open(question3, "r")
+            except FileNotFoundError:
+                print("File does not exists, please create a new one")
+                print("****************")
                 list = input("Save file as: ")+".csv"
+                print("****************")
         with open(list, "a") as file:
             name = ""
             while name != "q":
@@ -38,7 +44,8 @@ def find_list():
         inp = ""
         while inp != "q":
             inp = input("Name: ")
-            list.append(inp)
+            if inp != "q":
+                list.append(inp)
     return list
 
 #finds the gap between a given start time & end time
@@ -89,7 +96,6 @@ names = find_list()
 random.shuffle(names)
 print("****************")
 watchList = makeList(names, startTime, endTime)
-#end = get_end(startTime, )
 for i in watchList:
     print(i + ':', watchList[i])
 print("***************")
