@@ -53,8 +53,8 @@ def find_list():
 
 #finds the gap between a given start time & end time
 def find_gap(start, end):
-    startHour = int(start[:1])
-    endHour = int(end[:1])
+    startHour = int(start[:2])
+    endHour = int(end[:2])
     startMinute = int(start[2:])
     endMinute = int(end[2:])
     minuteGap = (endMinute - startMinute)
@@ -83,7 +83,7 @@ def makeList(list, start, end):
         personal_gap = personalGap(list, start, end)
         hourGap = personal_gap[0]
         minuteGap = personal_gap[1]
-        if int(currentMinute) + int(minuteGap) > 60:
+        if int(currentMinute) + int(minuteGap) >= 60:
             hourGap = hourGap + 1
         currentHour = (int(currentHour) + hourGap) % 24
         currentMinute = (int(currentMinute) + int(minuteGap)) % 60
