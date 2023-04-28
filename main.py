@@ -3,7 +3,13 @@ import random
 print("****************")
 print("Please write the time in four letters")
 startTime = input("start time: ")
+if len(startTime) != 4:
+    print("Please write time in four letters")
+    startTime = input("start time: ")
 endTime = input("end time: ")
+if len(endTime) != 4:
+    print("Please write time in four letters")
+    endTime = input("end time: ")
 
 #choosing a list from a file or creating a new one
 def find_list():
@@ -25,7 +31,7 @@ def find_list():
                 print("****************")
                 list = input("Save file as: ")+".csv"
                 print("****************")
-        with open(list, "a") as file:
+        with open(chooseFileInput, "a") as file:
             print("Write each name separately, When done write 'q'")
             name = ""
             while name != "q":
@@ -33,7 +39,7 @@ def find_list():
                 if name != "q":
                     file.write(f"{name},")
 
-        with open(list, "r") as file1:
+        with open(chooseFileInput, "r") as file1:
             num = 0
             list = []
             po = file1.read()
