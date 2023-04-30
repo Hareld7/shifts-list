@@ -1,7 +1,10 @@
 import random
 
+#THE TIME SET BLOCK
 print("****************")
 print("Please write the time in four letters")
+#for each start and end time, ask for input and confirm its in four letters
+#if th input is not in four letters ask for it again
 startTime = input("start time: ")
 if len(startTime) != 4:
     print("Please write time in four letters")
@@ -11,42 +14,37 @@ if len(endTime) != 4:
     print("Please write time in four letters")
     endTime = input("end time: ")
 
-#choosing a list from a file or creating a new one
+#THE NAMES LIST BLOCK
+#choosing a list from a new/existing file or manual mode where you put each name manually
 def find_list():
-    readInputFromFile = input("From a file? y for yes, n for no.    ")
+    # asking if the user want to use a file or manual mode
+    readInputFromFile = input("From a file?    y for yes, n for no    |  ")
     print("****************")
     if readInputFromFile[0] == "y":
-        newFileInput = input("New File? y for yes, n for no.   ")
-        print("****************")
-        if newFileInput[0] == "y":
-            list = input("Save file as: ")+".csv"
-            print("****************")
-        else:
-            chooseFileInput = input("Choose file: ")
-            print("****************")
+        list = []
+        print("Please pick an existing file or create a new one")
+        while len(list) == 0:
+            newFileQuestion = input("Do you want to create a new file?  y for yes   |   ")
+            if newFileQuestion[0] == "y":
+                chooseFileName = input("Save as:    |    ")
+                with open(chooseFileName, "a") as file:
+                    name = ""
+                    while name != "q":
+                        name = input("Name: ")
+                        if name != "q":
+                            file.write(f"{name},")
+            else:
+                chooseFileName = input("File name?    |   ")
             try:
-                list = open(chooseFileInput, "r")
+                with open(chooseFileName, "r") as file:
+                    num = 0
+                    po = file.read()
+                    row = po.split(",")
+                    for i in range(len(row) - 1):
+                        list.append(row[num])
+                        num = num + 1
             except FileNotFoundError:
-                print("File does not exists, please create a new one")
-                print("****************")
-                list = input("Save file as: ")+".csv"
-                print("****************")
-        with open(chooseFileInput, "a") as file:
-            print("Write each name separately, When done write 'q'")
-            name = ""
-            while name != "q":
-                name = input("Name: ")
-                if name != "q":
-                    file.write(f"{name},")
-
-        with open(chooseFileInput, "r") as file1:
-            num = 0
-            list = []
-            po = file1.read()
-            row = po.split(",")
-            for i in range(len(row) - 1):
-                list.append(row[num])
-                num = num + 1
+                print("File not found")
 #one-time list from input
     else:
         list = []
@@ -82,6 +80,7 @@ def personalGap(list, start, end):
 
 #making a dict type, names are the keys, the start time of every shift is the value key
 def makeList(list, start, end):
+    random.shuffle(list)
     dict = {list[0]: start[:2]+":"+start[2:]}
     currentHour = (start[:2])
     currentMinute = (start[2:])
@@ -103,7 +102,6 @@ print("****************")
 print("Shifts list:")
 print("****************")
 names = find_list()
-random.shuffle(names)
 print("****************")
 watchList = makeList(names, startTime, endTime)
 for i in watchList:
