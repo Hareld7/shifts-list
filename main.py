@@ -30,6 +30,8 @@ def find_list():
                 with open(chooseFileName, "a") as file:
                     name = ""
                     while name != "q":
+                        print("Write each name separately, "
+                              "When done type 'q' ")
                         name = input("Name: ")
                         if name != "q":
                             file.write(f"{name},")
@@ -47,6 +49,8 @@ def find_list():
                 print("File not found")
 #one-time list from input
     else:
+        print("Write each name separately, "
+              "When done type 'q' ")
         list = []
         inp = ""
         while inp != "q":
@@ -95,7 +99,6 @@ def makeList(list, start, end):
         currentTime = str(currentHour).zfill(2)+':'+str(currentMinute).zfill(2)
         dict.update({i: currentTime})
     return dict
-
 
 #TESTS
 print("****************")
